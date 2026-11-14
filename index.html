@@ -250,7 +250,7 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
 @keyframes ldo{to{opacity:0;visibility:hidden}}@keyframes bl{50%{opacity:.3}}
 #sp{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0;background:linear-gradient(90deg,var(--p),var(--s));z-index:150}
 /* hero profile bits */
-.otwr{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.otwr{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:22px}
 .otw{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid color-mix(in srgb,#22C55E 45%,transparent);background:color-mix(in srgb,#22C55E 10%,transparent);font:600 .82rem var(--body)}
 .otw i{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 0 #22C55E;animation:pl 2s infinite}
 @keyframes pl{70%{box-shadow:0 0 0 9px transparent}}
@@ -297,6 +297,20 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
 .soc a:after{content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,6px);padding:5px 10px;border-radius:8px;background:var(--t);color:var(--bg);font:600 .72rem var(--body);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .soc a:hover:after,.soc a:focus-visible:after{opacity:1;transform:translate(-50%,0)}
 .soc a:hover{color:var(--p);box-shadow:0 8px 24px color-mix(in srgb,var(--p) 28%,transparent)}
+.wide{grid-column:span 2}@media(max-width:760px){.wide{grid-column:auto}}
+.mc .vp{border-radius:0;max-height:none}
+.mph{aspect-ratio:16/9;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;padding:20px;background:linear-gradient(135deg,color-mix(in srgb,var(--p) 28%,var(--card)),color-mix(in srgb,var(--s) 25%,var(--card)));font:600 1.2rem var(--head)}
+.ach{grid-auto-flow:dense}
+.mom{overflow:hidden;padding:14px 0 44px;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mrow{--mh:clamp(250px,36vw,400px);display:flex;align-items:center;width:max-content;animation:mom var(--dur,60s) linear infinite;will-change:transform}
+@keyframes mom{to{transform:translateX(-50%)}}
+.mld{padding:60px 20px;text-align:center;color:var(--m);width:100vw}
+.mi{position:relative;flex:0 0 auto;height:var(--mh);aspect-ratio:var(--ar,4/5);margin-right:20px;border-radius:22px;overflow:hidden;border:1px solid var(--b);box-shadow:var(--sh);cursor:zoom-in;background:linear-gradient(135deg,color-mix(in srgb,var(--p) 28%,var(--card)),color-mix(in srgb,var(--s) 25%,var(--card)));transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s}
+.mi:hover{transform:translateY(-6px);border-color:var(--p)}
+.mi img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.mi:hover img{transform:scale(1.06)}
+.mi:after{content:attr(data-n);position:absolute;left:14px;bottom:14px;padding:4px 11px;border-radius:999px;font:600 .72rem var(--body);background:rgba(8,11,18,.55);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+@media(prefers-reduced-motion:reduce){.mom{overflow-x:auto;mask-image:none;-webkit-mask-image:none}}
 </style>
 </head>
 <body>
@@ -308,7 +322,7 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
   <a href="#home" class="logo"><img src="https://gvignesh.in/OIP.jpg" alt="" onerror="this.style.display='none'">GV<i>.</i>Babu</a>
   <div class="links" id="links">
     <span class="ind" id="ind"></span>
-    <a href="#home">Home</a><a href="#about">About</a><a href="#wins">Wins</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+    <a href="#home">Home</a><a href="#about">About</a><a href="#wins">Achievements</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#moments">Moments</a><a href="#contact">Contact</a>
   </div>
   <div class="act">
     <button class="tg" id="tg" aria-label="Switch between light and dark theme">
@@ -319,15 +333,14 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
   </div>
 </nav>
 <div class="mm" id="mm">
-  <a href="#home">Home</a><a href="#about">About</a><a href="#wins">Wins</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+  <a href="#home">Home</a><a href="#about">About</a><a href="#wins">Achievements</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#moments">Moments</a><a href="#contact">Contact</a>
 </div>
 </header>
 
 <main>
 <section id="home"><div class="wrap hero">
   <div>
-    <div class="hl otwr"><span class="otw"><i></i>Open to work</span><span class="loc">Vijayawada, India</span></div>
-    <p class="hi hl">CSE (AI&ML) student · Dhanekula College</p>
+    <div class="hl otwr"><span class="otw"><i></i>AI intern at Calibo</span></div>
     <h1 class="hl">Guthi <span class="g">Vignesh Babu</span></h1>
     <p class="lead hl">I'm a highly motivated CSE (AI&ML) student at Dhanekula College in Vijayawada, India, with a strong interest in applying technology to solve real-world problems. I'm proficient in <b>Python</b>, <b>web development</b>, and <b>Artificial Intelligence/Machine Learning</b>, constantly seeking to expand my knowledge and skills in these areas.</p>
     <div class="cta hl">
@@ -372,7 +385,7 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
 </div></section>
 
 <section id="wins"><div class="wrap">
-  <div class="sh rv"><h2>Winning achievements</h2><p>Hackathon wins and recognitions. Each card opens the original post on LinkedIn.</p></div>
+  <div class="sh rv"><h2>Achievements</h2><p>Hackathon wins and recognitions. Each card opens the original post on LinkedIn.</p></div>
   <div class="grid ach" id="ach"></div>
 </div></section>
 
@@ -412,6 +425,12 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
   <div class="sh rv"><h2>Technical skills</h2></div>
   <div class="grid sk" id="sk"></div>
 </div></section>
+
+<section id="moments"><div class="wrap">
+  <div class="sh rv"><h2>Moments That Made Me</h2><p>A few frames from the hackathons, workshops and milestones along the way. Click any photo to enlarge.</p></div>
+</div>
+<div class="mom" id="mom" aria-label="Photo gallery"><div class="mrow" id="mrow"><div class="mld">Loading moments…</div></div></div>
+</section>
 
 <section><div class="wrap">
   <div class="card li rv"><h2>LinkedIn activity</h2><p>For my latest activities and daily updates, please visit my LinkedIn profile.</p>
@@ -456,9 +475,9 @@ const LI='https://www.linkedin.com/posts/';
 const HACK=['hack1.jpg','hack2.jpg','hack3.png','hack4.jpg','hack5.jpg','hack6.jpg'];
 const ACH=[
  {f:1,t:'Best Innovation Award',s:'Code Spark 2025 · National 24-hour hackathon',d:'Won for building NeuroNodes, an AI assistant that connects Gmail, Notion and Slack in one chat.',img:U+'hack1.jpg',u:'https://code-spark-25.vercel.app/',l:'See NeuroNodes'},
- {t:'GenAI mentor',s:'AOTMS',d:'Mentoring recognition in generative AI. Read the full story on LinkedIn.',u:LI+'guthi-vignesh-babu_genai-mentor-aotms-activity-7420892322525077505-t-YJ'},
+ {t:'GenAI mentor',s:'AOTMS',d:'Mentoring recognition in generative AI. Browse the photos, then read the full post on LinkedIn.',car:'genai',u:LI+'guthi-vignesh-babu_genai-mentor-aotms-activity-7420892322525077505-t-YJ'},
  {t:'Learning journey, day 388',s:'BrainTrail',d:'A milestone from my daily learning streak. Read the post on LinkedIn.',u:LI+'guthi-vignesh-babu_day388-learningjourney-braintrail-activity-7382452004192870400-cxgU'},
- {t:'Smart transport for APSRTC',s:'Andhra Pradesh',d:'A smart transport idea for Andhra Pradesh State Road Transport Corporation. Read the post on LinkedIn.',u:LI+'guthi-vignesh-babu_apsrtc-andhrapradesh-smarttransport-activity-7377015046738120704-Pjx7'},
+ {t:'APSRTC GOVT ADAS Project',s:'Andhra Pradesh State Road Transport Corporation',d:'An ADAS project for APSRTC, Government of Andhra Pradesh. Browse the photos, then read the full post on LinkedIn.',car:'adas',u:LI+'guthi-vignesh-babu_apsrtc-andhrapradesh-smarttransport-activity-7377015046738120704-Pjx7'},
  {t:'Merit Prize',s:'Brainovision · PSCMR',d:'Merit prize at the Brainovision hackathon hosted at PSCMR. Read the post on LinkedIn.',u:LI+'harsha0101_meritprize-brainovision-pscmr-activity-7406350444547166208-LrrQ'},
  {t:'AI hackathon win',s:'Hackathon',d:'A win in an AI hackathon. Read the post on LinkedIn.',u:LI+'harsha0101_hackathon-ai-artificialintelligence-activity-7365029239261179904-KGVT'}
 ];
@@ -499,7 +518,7 @@ const SK=[
 const A=(u,l)=>`<a class="lk" href="${u}" target="_blank" rel="noopener">${l} ${ARR}</a>`;
 $('#ach').innerHTML=ACH.map((a,i)=>a.f?
  `<article class="card feat rv"><div class="im"><img src="${a.img}" alt="" loading="lazy"></div><div class="bd"><span class="tag gold">Featured · Winner</span><h3>${a.t}</h3><p style="color:var(--gold);font-weight:600;margin-bottom:10px">${a.s}</p><p>${a.d}</p>${A(a.u,a.l)}${' &nbsp; '+A(ACH[1].u.replace(/.*/,'https://www.linkedin.com/in/guthi-vignesh-babu/'),'LinkedIn')}</div></article>`:
- `<article class="card rv" style="--i:${i}"><div class="bd"><div class="ico">${TROPHY}</div><span class="tag gold">Winning achievement</span><h3>${a.t}</h3><p style="color:var(--gold);font-weight:600;font-size:.85rem;margin-bottom:8px">${a.s}</p><p>${a.d}</p>${A(a.u,'View on LinkedIn')}</div></article>`).join('');
+ `<article class="card rv${a.car?' wide':''}" style="--i:${i}">${a.car?`<div class="mc" id="c-${a.car}"></div>`:''}<div class="bd"><div class="ico">${TROPHY}</div><span class="tag gold">Achievements</span><h3>${a.t}</h3><p style="color:var(--gold);font-weight:600;font-size:.85rem;margin-bottom:8px">${a.s}</p><p>${a.d}</p>${A(a.u,'View on LinkedIn')}${a.car==='adas'?' &nbsp; '+A('https://drive.google.com/drive/folders/1w-0vPpzAuehoap4uExwuzmd-XS8D8P_b?usp=drive_link','All photos'):''}</div></article>`).join('');
 $('#pj').innerHTML=PJ.map((p,i)=>`<article class="card rv ${p.big?'big':'sm'}" style="--i:${i%3}"><div class="im"><img src="${p.img}" alt="" loading="lazy" referrerpolicy="no-referrer"></div><div class="bd">${p.tg.map(x=>`<span class="tag">${x}</span>`).join('')}<h3>${p.t}</h3><p>${p.d}</p>${A(p.u,p.l)}</div></article>`).join('');
 const xc=(arr,sel)=>$(sel).innerHTML=arr.map((c,i)=>`<article class="card rv" style="--i:${i%3}"><div class="bd"><div class="lg"><img data-lb src="${c.img}" alt="" loading="lazy" referrerpolicy="no-referrer"></div><h3>${c.t}</h3><p>${c.d}</p>${A(c.u,c.l||'View certificate')}</div></article>`).join('');
 const ALLX=INT.map(x=>({...x,k:'Internship'})).concat(CERT.map(x=>({...x,k:'Certification'})));
@@ -578,6 +597,69 @@ const sp=$('#sp');addEventListener('scroll',()=>{sp.style.transform=`scaleX(${sc
    c.beginPath();for(let x=0;x<=W+step;x+=step)x?c.lineTo(x,Y(x)):c.moveTo(x,Y(x));c.strokeStyle=`rgba(${r},${g},${b},${light?.35:.5})`;c.lineWidth=1.2*d;c.stroke()})}
  if(calm){draw();addEventListener('resize',draw);return}
  (function f(){requestAnimationFrame(f);t+=.012;draw()})();
+})();
+</script>
+<script>
+/* Photo carousels on win cards: paste Google Drive image links into the lists below */
+(function(){
+ const FOLDER='https://drive.google.com/drive/folders/1w-0vPpzAuehoap4uExwuzmd-XS8D8P_b?usp=drive_link';
+ const CARS={
+  adas:{label:'APSRTC GOVT ADAS Project',folder:FOLDER,links:[
+   'https://drive.google.com/file/d/11wPKKrF7QIKLc1ybSYBkVFYm9Vf7rx2Z/view?usp=sharing',
+   'https://drive.google.com/file/d/1Desx79B7MJGZQd0w5T1HIRuVyqBdJBCp/view?usp=drive_link',
+   'https://drive.google.com/file/d/1tEqCAtcCoNftgBYvZ3Bxdc-vpnrL6LGK/view?usp=drive_link',
+   'https://drive.google.com/file/d/1-hDJNaD5t3JeKCwup3-P5wwhrczIHRCk/view?usp=drive_link'
+  ]},
+  genai:{label:'GenAI mentor, AOTMS',links:[
+   'https://drive.google.com/file/d/1sjAqBYMeQvH86hvCglU906ThmQZ6HRV5/view?usp=sharing',
+   'https://drive.google.com/file/d/180w3LlwrIrPZkiSfPuKmemeUQ9auqAh6/view?usp=sharing',
+   'https://drive.google.com/file/d/1CMh2carBVPhBiAqdI6lYzlloC6AnPWrO/view?usp=sharing'
+  ]}
+ };
+ Object.entries(CARS).forEach(([key,c])=>{
+  const el=$('#c-'+key);if(!el)return;
+  const ids=c.links.map(x=>(String(x).match(/[-\w]{25,}/)||[])[0]).filter(Boolean);
+  if(!ids.length){el.innerHTML=`<div class="mph"><span>${c.label}</span>${c.folder?`<a class="btn bs" href="${c.folder}" target="_blank" rel="noopener">View project photos</a>`:''}</div>`;return}
+  el.innerHTML=`<div class="vp"><div class="tk">${ids.map((id,i)=>`<img data-lb src="https://drive.google.com/thumbnail?id=${id}&sz=w1400" alt="${c.label} photo ${i+1}" loading="lazy" referrerpolicy="no-referrer">`).join('')}</div><button class="cb l" aria-label="Previous photo">‹</button><button class="cb r" aria-label="Next photo">›</button><div class="dots">${ids.map((_,i)=>`<button aria-label="Photo ${i+1}"></button>`).join('')}</div></div>`;
+  const tk=el.querySelector('.tk'),dots=[...el.querySelectorAll('.dots button')];let i=0,tm,vis=true;
+  const go=n=>{i=(n+ids.length)%ids.length;tk.style.transform=`translateX(-${i*100}%)`;dots.forEach((d,k)=>d.classList.toggle('on',k===i))};
+  const auto=()=>{clearInterval(tm);if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&ids.length>1)tm=setInterval(()=>vis&&go(i+1),4500)};
+  el.querySelector('.l').onclick=()=>{go(i-1);auto()};el.querySelector('.r').onclick=()=>{go(i+1);auto()};
+  dots.forEach((d,k)=>d.onclick=()=>{go(k);auto()});
+  let sx=0;tk.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});tk.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40){go(i+(d<0?1:-1));auto()}});
+  new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(el);go(0);auto();
+ });
+})();
+</script>
+<script>
+/* Moments That Made Me: paste more Google Drive image links (or file IDs) into MOM.
+   Each card automatically takes the shape of its photo (horizontal or vertical). */
+(function(){
+ const MOM=[
+   'https://drive.google.com/file/d/1d0-4GPQx0DgngGBA0T0XrzaNidlio98F/view?usp=drive_link',
+   'https://drive.google.com/file/d/14coytHgZ8RoWV5pcKivoWEaKPVGW8myu/view?usp=drive_link',
+   'https://drive.google.com/file/d/1QC7jyO_g5tjcDbKq7y0RkFmrpmAxq_lh/view?usp=drive_link',
+   'https://drive.google.com/file/d/1ualNg7Lpf0wFAXroJDJwdH2r79H20lf2/view?usp=drive_link',
+   'https://drive.google.com/file/d/1XwHtPB3bX6cAoZANAaZDw6rqduEIY6Gv/view?usp=drive_link',
+   'https://drive.google.com/file/d/1Z-OjKVAHj1cOxtViFMnFyK94V0wi9OGp/view?usp=drive_link',
+   'https://drive.google.com/file/d/1aWbwBFQFKxIUfojWqvY34AMdIm9bqKDl/view?usp=drive_link',
+   'https://drive.google.com/file/d/18-Xi1HafmuGQVCVj2BsnSz6wH0xCDJOs/view?usp=drive_link',
+   'https://drive.google.com/file/d/18mJ4aPKdMit1mTKSE_g8pzhHA8SQhI7Y/view?usp=drive_link',
+   'https://drive.google.com/file/d/1HSdfNuAs7kNQwjotZ0u6VbgPCi3qZuUC/view?usp=drive_link',
+   'https://drive.google.com/file/d/1RLPOmaGsugSDG4cT84fZn84V-QV3FDGh/view?usp=drive_link',
+   'https://drive.google.com/file/d/1b5bTF0Qwg-1na1-OY9NW8MIX5j3BUbkP/view?usp=drive_link',
+ ];
+ const ids=MOM.map(x=>(String(x).match(/[-\w]{25,}/)||[])[0]).filter(Boolean),row=$('#mrow');if(!row||!ids.length)return;
+ const url=id=>`https://drive.google.com/thumbnail?id=${id}&sz=w1200`;
+ const ratio=id=>new Promise(r=>{const im=new Image(),t=setTimeout(()=>r(.8),9000);im.referrerPolicy='no-referrer';
+  im.onload=()=>{clearTimeout(t);r(Math.min(1.8,Math.max(.6,im.naturalWidth/im.naturalHeight||.8)))};
+  im.onerror=()=>{clearTimeout(t);r(.8)};im.src=url(id)});
+ Promise.all(ids.map(ratio)).then(rs=>{
+  const one=ids.map((id,i)=>`<div class="mi" data-n="${String(i+1).padStart(2,'0')}" style="--ar:${rs[i].toFixed(3)}"><img data-lb src="${url(id)}" alt="Moment ${i+1}" referrerpolicy="no-referrer"></div>`).join('');
+  const build=n=>{const half=one.repeat(n);row.innerHTML=half+half;[...row.children].slice(ids.length*n).forEach(c=>c.setAttribute('aria-hidden','true'))};
+  build(1);const w=row.scrollWidth/2;const n=Math.max(1,Math.ceil(innerWidth*1.1/w));if(n>1)build(n);
+  row.style.setProperty('--dur',Math.round(row.scrollWidth/2/80)+'s');
+ });
 })();
 </script>
 </body>
