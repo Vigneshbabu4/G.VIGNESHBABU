@@ -120,7 +120,9 @@ h1{font-size:clamp(2.8rem,8vw,5.8rem);font-weight:600;letter-spacing:-.04em;marg
 .car{margin-top:70px;padding:10px;border-radius:28px;background:var(--glass);border:1px solid var(--b);box-shadow:var(--sh)}
 .vp{position:relative;overflow:hidden;border-radius:20px;aspect-ratio:16/9;max-height:520px;width:100%;background:linear-gradient(135deg,color-mix(in srgb,var(--p) 30%,var(--card)),color-mix(in srgb,var(--s) 30%,var(--card)))}
 .tk{display:flex;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-.tk img{flex:0 0 100%;height:100%;object-fit:cover;cursor:zoom-in}
+.tk .sl{flex:0 0 100%;height:100%;position:relative;overflow:hidden;background:#0b0b0e}
+.tk .sl:before{content:"";position:absolute;inset:-24px;background:var(--bg,none) center/cover no-repeat;filter:blur(26px) saturate(1.2) brightness(.65)}
+.tk .sl img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;cursor:zoom-in}
 .cb{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(8,11,18,.5);color:#fff;cursor:pointer;backdrop-filter:blur(8px);font-size:1.1rem;transition:background .3s}
 .cb:hover{background:var(--p)}.cb.l{left:14px}.cb.r{right:14px}
 .dots{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:8px}
@@ -314,6 +316,51 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
 @media(prefers-reduced-motion:reduce){.mom{overflow-x:auto;mask-image:none;-webkit-mask-image:none}}
 .ab.one{grid-template-columns:1fr}.ab.one>div{max-width:820px}.ab .al{color:var(--t);font:500 clamp(1.15rem,2.2vw,1.45rem)/1.55 var(--head);letter-spacing:-.01em;margin-bottom:22px}
 .otl{display:inline-flex;align-items:center;gap:6px;font:600 .85rem var(--body);color:var(--p);padding:7px 2px;border-bottom:1px solid transparent;transition:border-color .25s,gap .25s}.otl svg{width:14px;height:14px;transition:transform .25s}.otl:hover{border-color:currentColor}.otl:hover svg{transform:translate(2px,-2px)}
+
+/* bigger hero photo, black & white with smoky colour reveal */
+@media(min-width:900px){.hero{grid-template-columns:1fr 1fr}}
+.pf{width:min(540px,100%,calc((100svh - 150px)*.8))}
+.pf .bw{filter:grayscale(1) contrast(1.06) brightness(.96)}
+.pf .col{position:absolute;inset:0;z-index:1;-webkit-mask-image:linear-gradient(transparent,transparent);mask-image:linear-gradient(transparent,transparent);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.pf .bw{filter:none}.pf .col{display:none}}
+
+/* hero: only the person, no box or background */
+.pf:before{display:none}
+.pf .in{background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;filter:drop-shadow(0 22px 34px rgba(0,0,0,.38))}
+[data-theme=light] .pf .in{filter:drop-shadow(0 20px 28px rgba(15,23,42,.22))}
+.pf .in img{object-fit:contain;object-position:center bottom}
+/* carousels: frame follows each photo's shape; whole photo is always visible */
+.vp{aspect-ratio:var(--ar,16/9);max-height:min(78vh,640px);transition:aspect-ratio .45s ease}
+.tk .sl{background:#0b0b0e}
+/* project image that must be shown whole (NeuroNodes) */
+.im.fitc{position:relative;background:#0b0b0e}
+.im.fitc:before{content:"";position:absolute;inset:-24px;background:var(--bg,none) center/cover no-repeat;filter:blur(26px) saturate(1.2) brightness(.6)}
+.im.fitc img{position:relative;z-index:1;object-fit:contain}
+.lg .mono{font:700 1.7rem var(--head);color:#0f172a;letter-spacing:-.02em}
+
+/* hero layout: tall person image on desktop, stacked and centred on tablet/mobile */
+#home{padding:86px 0 0;align-items:stretch}
+#home .wrap{width:min(1320px,100% - 40px)}
+.hero{align-items:stretch;gap:24px}
+.hero>div:first-child{align-self:center;padding:28px 0}
+@media(min-width:900px){
+ .hero{grid-template-columns:minmax(0,1fr) minmax(0,min(46vw,660px));gap:32px;min-height:calc(100svh - 86px)}
+ .pf{width:100%;height:calc(100svh - 86px);aspect-ratio:auto;margin:0;align-self:end}
+ .chip.a{left:4%;bottom:12%}.chip.b{right:4%;top:14%}
+}
+@media(max-width:899px){
+ #home{min-height:0;padding-top:96px}
+ .hero{grid-template-columns:1fr;gap:0}
+ .hero>div:first-child{padding:12px 0 0}
+ h1{font-size:clamp(2.5rem,12vw,4rem)}
+ .lead{font-size:1rem;margin-bottom:26px}
+ .cta .btn{flex:1 1 150px;justify-content:center}
+ .xs{margin:26px 0 8px}
+ .pf{width:min(100%,440px);height:auto;aspect-ratio:4/5;margin:10px auto 0;align-self:auto}
+}
+@media(max-width:480px){.cta .btn{flex:1 1 100%;padding:14px 18px}.otwr{margin-bottom:16px}}
+/* hero photo stays still: no tilt or movement on hover (the colour reveal remains) */
+.pf .in,.pf .chip{transform:none!important;transition:none!important}
 </style>
 </head>
 <body>
@@ -322,7 +369,7 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
 
 <header>
 <nav aria-label="Main">
-  <a href="#home" class="logo"><img src="https://gvignesh.in/OIP.jpg" alt="" onerror="this.style.display='none'">GV<i>.</i>Babu</a>
+  <a href="#home" class="logo"><img src="OIP.jpg" alt="" onerror="this.style.display='none'">GV<i>.</i>Babu</a>
   <div class="links" id="links">
     <span class="ind" id="ind"></span>
     <a href="#home">Home</a><a href="#about">About</a><a href="#wins">Achievements</a><a href="#research">Research</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#moments">Moments</a><a href="#contact">Contact</a>
@@ -353,7 +400,7 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
     <div class="xs hl"><span>Experience includes</span><div id="xl"></div></div>
   </div>
   <div class="pf hl" id="pf">
-    <div class="in"><img src="https://drive.google.com/thumbnail?id=1WCtdn0wzc0g0Ct6m-buxUN-vpJR_d7_6&sz=w1200" alt="Guthi Vignesh Babu" referrerpolicy="no-referrer" onerror="var s=this.dataset.s|0;this.dataset.s=s+1;this.src=['https://drive.google.com/uc?export=view&id=1WCtdn0wzc0g0Ct6m-buxUN-vpJR_d7_6','https://gvignesh.in/webpic.jpeg','https://ui-avatars.com/api/?name=Vignesh+Babu&background=8B5CF6&color=fff&size=500'][s]"></div>
+    <div class="in"><img src="https://drive.google.com/thumbnail?id=10ciMS4WfwTY3E7K5XvG3fLH7KRUp5U85&sz=w1600" alt="Guthi Vignesh Babu" referrerpolicy="no-referrer" onerror="var s=this.dataset.s|0;this.dataset.s=s+1;this.src=['https://lh3.googleusercontent.com/d/10ciMS4WfwTY3E7K5XvG3fLH7KRUp5U85=w1600','https://drive.google.com/uc?export=view&id=10ciMS4WfwTY3E7K5XvG3fLH7KRUp5U85','webpic.jpeg','https://ui-avatars.com/api/?name=Vignesh+Babu&background=8B5CF6&color=fff&size=500'][s]"></div>
     <div class="chip a"><i></i>Best Innovation Award, Code Spark 2025</div>
     <div class="chip b">AI & ML · Embedded · Web</div>
   </div>
@@ -466,20 +513,23 @@ nav{width:min(1120px,100% - 24px);margin:auto;border:1px solid var(--b);border-r
 <div class="lb" id="lb" role="dialog" aria-label="Image preview"><button aria-label="Close preview">✕</button><img alt=""></div>
 
 <script>
-const U='https://gvignesh.in/',$=s=>document.querySelector(s);
+/* images hosted next to this HTML file use plain file names (U is empty on purpose) */
+const U='',$=s=>document.querySelector(s);
 const ARR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>';
 const TROPHY='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>';
 const LI='https://www.linkedin.com/posts/';
 /* ---- DATA (edit text here) ---- */
-const HACK=['hack1.jpg','hack2.jpg','hack3.png','hack4.jpg','hack5.jpg','hack6.jpg'];
+/* Code Spark 2025 photos: files sit next to this HTML file (same folder). Missing ones are skipped automatically. */
+const HACK=['hack1.jpg','hack2.jpg','hack3.jpg','hack4.jpg','hack5.jpg','hack6.jpg']; /* local backups, used only if the Drive photo fails */
+const HACKID=['1W3aXqAOr7_RNJIJkq8FzuEyiN2prf9Wu','1uUpZpt4hiMgFw78RT3V_PWowsXLg9zwx','1jLqm1t1oSd2_D8G6eBMmyR4pweQb2C-f','1wbwIf-deyictV_fc-NOyZZkIJEmKnXfm','16Zu1eaxy7j0DOusqJF1R8eWyzPuQ_FeE','1lLfVLIsp4JEcX5jQh-C0pfyXGHLZQGMJ'];
 const ACH=[
- {f:1,t:'Best Innovation Award',s:'Code Spark 2025 · National 24-hour hackathon',d:'Won for building NeuroNodes, an AI assistant that connects Gmail, Notion and Slack in one chat.',img:U+'hack1.jpg',u:'https://code-spark-25.vercel.app/',l:'See NeuroNodes'},
+ {f:1,t:'Best Innovation Award',s:'Code Spark 2025 · National 24-hour hackathon',d:'Won for building NeuroNodes, an AI assistant that connects Gmail, Notion and Slack in one chat.',img:'https://drive.google.com/thumbnail?id=1W3aXqAOr7_RNJIJkq8FzuEyiN2prf9Wu&sz=w1600',alt:'hack1.jpg',u:'https://code-spark-25.vercel.app/',l:'See NeuroNodes'},
  {t:'GenAI mentor',s:'AOTMS',d:'Mentoring recognition in generative AI. Browse the photos, then read the full post on LinkedIn.',car:'genai',u:LI+'guthi-vignesh-babu_genai-mentor-aotms-activity-7420892322525077505-t-YJ'},
  {t:'APSRTC GOVT ADAS Project',s:'Andhra Pradesh State Road Transport Corporation',d:'An ADAS project for APSRTC, Government of Andhra Pradesh. Browse the photos, then read the full post on LinkedIn.',car:'adas',u:LI+'guthi-vignesh-babu_apsrtc-andhrapradesh-smarttransport-activity-7377015046738120704-Pjx7'},
  {t:'Merit Prize',s:'Brainovision · PSCMR',d:'Merit prize at the Brainovision hackathon hosted at PSCMR. Read the post on LinkedIn.',u:LI+'harsha0101_meritprize-brainovision-pscmr-activity-7406350444547166208-LrrQ'},
 ];
 const PJ=[
- {t:'NeuroNodes',d:'Chat with all your apps in one place. NeuroNodes uses AI to connect your tools like Gmail, Notion, and Slack for infinite productivity.',img:U+'neuronode.png',u:'https://code-spark-25.vercel.app/',l:'View website',tg:['AI','Hackathon winner'],big:1},
+ {t:'NeuroNodes',d:'Chat with all your apps in one place. NeuroNodes uses AI to connect your tools like Gmail, Notion, and Slack for infinite productivity.',img:'https://drive.google.com/thumbnail?id=11OhwEOExr9pbtu_tdjsA3sGyMrNV7lyK&sz=w1600',alt:'neuronode.png',fit:1,u:'https://code-spark-25.vercel.app/',l:'View website',tg:['AI','Hackathon winner'],big:1},
  {t:'Tensora AI',d:'A live AI web application built and deployed on Vercel.',img:'https://drive.google.com/thumbnail?id=17pDPIemVknHA4xc4QIeQSnmZ3DzQkg_k&sz=w1200',u:'https://tensora-dev.vercel.app/',l:'View website',tg:['AI','Web']},
  {t:'Portfolio',d:'Web Development projects using HTML, CSS, and JavaScript.',img:'https://cdn.prod.website-files.com/6344c9cef89d6f2270a38908/673f2a3b44c1ed4901bb43bb_6386328bea96dffacc89946b_d1.webp',u:'https://gvignesh.in',l:'View website',tg:['HTML','CSS','JS']},
  {t:'CodeReview Pro',d:'Python Flask projects help to automate code reviews and improve code quality.',img:U+'code.jpg',u:'https://vignesh46.pythonanywhere.com/',l:'View website',tg:['Python','Flask']},
@@ -490,6 +540,22 @@ const PJ=[
  {t:'Face Emotion Recognition',d:'It works for sentiment analysis and feedback!',img:'https://relaxifyapp.com/wordpress/wp-content/uploads/2021/11/Frame-18-3-1.png',u:LI+'guthi-vignesh-babu-29b307289_machinelearning-deeplearning-computervision-activity-7210100805503176704-97YV',l:'View details',tg:['Deep learning']},
  {t:'Object Detection',d:'Helmet Detection in Traffic. AI-powered system for road safety. Detects riders without helmets in real time!',img:'https://kotaielectronics.com/wp-content/uploads/2024/03/maxresdefault.jpg',u:LI+'guthi-vignesh-babu-29b307289_aimers-aimersociety-activity-7201578296084500481-czaN',l:'View details',tg:['Computer vision','Road safety']}
 ];
+/* Project illustrations: drawn in code, so they can never be a broken image. Used when the real picture fails (and for Portfolio and HoneyPot). */
+const ART=(c1,c2,body)=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs><rect width="800" height="450" fill="url(#g)"/><g opacity=".12" fill="#fff"><circle cx="90" cy="70" r="120"/><circle cx="720" cy="400" r="150"/></g><g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">${body}</g></svg>`);
+const FB={
+ 'NeuroNodes':ART('#4c1d95','#1d4ed8','<circle cx="250" cy="225" r="26"/><circle cx="400" cy="130" r="26"/><circle cx="400" cy="320" r="26"/><circle cx="550" cy="225" r="26"/><path d="M276 215 374 140M276 235 374 310M426 140 524 215M426 310 524 235M400 156V294"/>'),
+ 'Tensora AI':ART('#0f172a','#6d28d9','<circle cx="400" cy="225" r="40"/><circle cx="240" cy="150" r="20"/><circle cx="240" cy="300" r="20"/><circle cx="560" cy="150" r="20"/><circle cx="560" cy="300" r="20"/><path d="M258 160 366 210M258 290 366 240M542 160 434 210M542 290 434 240"/>'),
+ 'Portfolio':ART('#312e81','#0e7490','<rect x="200" y="100" width="400" height="250" rx="18"/><path d="M200 145H600"/><circle cx="228" cy="123" r="3" fill="#fff"/><circle cx="248" cy="123" r="3" fill="#fff"/><circle cx="268" cy="123" r="3" fill="#fff"/><rect x="230" y="175" width="150" height="20" rx="6"/><path d="M230 220H370M230 245H340M230 270H360"/><rect x="420" y="175" width="150" height="150" rx="12"/><path d="M458 235 440 250 458 265M532 235 550 250 532 265M505 228 485 272"/>'),
+ 'CodeReview Pro':ART('#064e3b','#1e3a8a','<rect x="190" y="110" width="420" height="230" rx="16"/><path d="M230 160H330M250 195H400M250 230H360M230 265H320"/><circle cx="520" cy="250" r="45"/><path d="M498 250 515 267 545 232"/>'),
+ 'HoneyPot':ART('#92400e','#1e1b4b','<path d="M400 90 520 130V230C520 300 470 340 400 365 330 340 280 300 280 230V130Z"/><rect x="360" y="215" width="80" height="62" rx="10"/><path d="M378 215V195a22 22 0 0 1 44 0V215"/><circle cx="400" cy="246" r="6" fill="#fff"/><path d="M110 300 135 285 160 300V330L135 345 110 330ZM640 120 665 105 690 120V150L665 165 640 150Z" opacity=".55"/>'),
+ 'Virtual Mouse':ART('#4c1d95','#0e7490','<path d="M300 110V330L360 275 400 360 440 342 400 258 480 250Z"/><path d="M520 150 560 200 540 260 590 300" opacity=".7"/><circle cx="520" cy="150" r="8" fill="#fff"/><circle cx="560" cy="200" r="8" fill="#fff"/><circle cx="540" cy="260" r="8" fill="#fff"/><circle cx="590" cy="300" r="8" fill="#fff"/>'),
+ 'AI Voicebot':ART('#9d174d','#312e81','<rect x="360" y="100" width="80" height="150" rx="40"/><path d="M320 215a80 80 0 0 0 160 0M400 295V345M360 345H440M270 190V240M230 170V260M530 190V240M570 170V260"/>'),
+ 'Websites Club':ART('#1e3a8a','#0e7490','<rect x="355" y="205" width="90" height="40" rx="12"/><path d="M355 215 285 175M445 215 515 175M355 235 285 275M445 235 515 275"/><circle cx="270" cy="165" r="30"/><circle cx="530" cy="165" r="30"/><circle cx="270" cy="285" r="30"/><circle cx="530" cy="285" r="30"/>'),
+ 'Face Emotion Recognition':ART('#b45309','#7c3aed','<circle cx="400" cy="225" r="105"/><circle cx="360" cy="200" r="8" fill="#fff"/><circle cx="440" cy="200" r="8" fill="#fff"/><path d="M350 255Q400 305 450 255M250 140V110H280M550 140V110H520M250 310V340H280M550 310V340H520"/>'),
+ 'Object Detection':ART('#0f172a','#0f766e','<path d="M110 360H690"/><rect x="230" y="140" width="150" height="200" rx="10"/><rect x="450" y="190" width="150" height="150" rx="10" stroke-dasharray="14 10"/><circle cx="305" cy="205" r="30"/><path d="M270 205H340"/><rect x="230" y="108" width="80" height="24" rx="6"/>')
+};
+PJ.forEach(p=>{p.fb=FB[p.t]});
+['Portfolio','HoneyPot'].forEach(n=>{const p=PJ.find(x=>x.t===n);if(p)p.img=FB[n]});
 const D='https://drive.google.com/file/d/';
 const INT=[
  {t:'Google Cloud Cybersecurity',d:'Completed a comprehensive internship focused on cloud security architecture, threat detection, and incident response using Google Cloud Platform. Gained hands-on experience with Security Command Center, Cloud Armor, and IAM best practices for securing cloud infrastructure.',img:'https://images.credly.com/images/505080ad-3731-4b1d-98df-347655a45750/image.png',u:D+'11kJzGYjzbIDT5DbrytBfKO9wwCCednTv/view?usp=sharing'},
@@ -514,16 +580,22 @@ const SK=[
 /* ---- RENDER ---- */
 const A=(u,l)=>`<a class="lk" href="${u}" target="_blank" rel="noopener">${l} ${ARR}</a>`;
 $('#ach').innerHTML=ACH.map((a,i)=>a.f?
- `<article class="card feat rv"><div class="im"><img src="${a.img}" alt="" loading="lazy"></div><div class="bd"><span class="tag gold">Featured · Winner</span><h3>${a.t}</h3><p style="color:var(--gold);font-weight:600;margin-bottom:10px">${a.s}</p><p>${a.d}</p>${A(a.u,a.l)}${' &nbsp; '+A(ACH[1].u.replace(/.*/,'https://www.linkedin.com/in/guthi-vignesh-babu/'),'LinkedIn')}</div></article>`:
+ `<article class="card feat rv"><div class="im"><img src="${a.img}" ${a.alt?`data-alt="${a.alt}"`:''} alt="" loading="lazy" referrerpolicy="no-referrer"></div><div class="bd"><span class="tag gold">Featured · Winner</span><h3>${a.t}</h3><p style="color:var(--gold);font-weight:600;margin-bottom:10px">${a.s}</p><p>${a.d}</p>${A(a.u,a.l)}${' &nbsp; '+A(ACH[1].u.replace(/.*/,'https://www.linkedin.com/in/guthi-vignesh-babu/'),'LinkedIn')}</div></article>`:
  `<article class="card rv${a.car?' wide':''}" style="--i:${i}">${a.car?`<div class="mc" id="c-${a.car}"></div>`:''}<div class="bd"><div class="ico">${TROPHY}</div><span class="tag gold">Achievement</span><h3>${a.t}</h3><p style="color:var(--gold);font-weight:600;font-size:.85rem;margin-bottom:8px">${a.s}</p><p>${a.d}</p>${A(a.u,'View on LinkedIn')}${a.car==='adas'?' &nbsp; '+A('https://drive.google.com/drive/folders/1w-0vPpzAuehoap4uExwuzmd-XS8D8P_b?usp=drive_link','All photos'):''}</div></article>`).join('');
-$('#pj').innerHTML=PJ.map((p,i)=>`<article class="card rv ${p.big?'big':'sm'}" style="--i:${i%3}"><div class="im"><img src="${p.img}" alt="" loading="lazy" referrerpolicy="no-referrer"></div><div class="bd">${p.tg.map(x=>`<span class="tag">${x}</span>`).join('')}<h3>${p.t}</h3><p>${p.d}</p>${A(p.u,p.l)}</div></article>`).join('');
+$('#pj').innerHTML=PJ.map((p,i)=>`<article class="card rv ${p.big?'big':'sm'}" style="--i:${i%3}"><div class="im${p.fit?' fitc':''}"><img src="${p.img}" ${p.alt?`data-alt="${p.alt}"`:''} ${p.fb?`data-fb="${p.fb}"`:''} alt="${p.t} project preview" loading="lazy" referrerpolicy="no-referrer"></div><div class="bd">${p.tg.map(x=>`<span class="tag">${x}</span>`).join('')}<h3>${p.t}</h3><p>${p.d}</p>${A(p.u,p.l)}</div></article>`).join('');
 const xc=(arr,sel)=>$(sel).innerHTML=arr.map((c,i)=>`<article class="card rv" style="--i:${i%3}"><div class="bd"><div class="lg"><img data-lb src="${c.img}" alt="" loading="lazy" referrerpolicy="no-referrer"></div><h3>${c.t}</h3><p>${c.d}</p>${A(c.u,c.l||'View certificate')}</div></article>`).join('');
 const ALLX=INT.map(x=>({...x,k:'Internship'})).concat(CERT.map(x=>({...x,k:'Certification'})));
 $('#exg').innerHTML=ALLX.map((c,i)=>`<article class="card rv" data-k="${c.k}" style="--i:${i%3}"><div class="bd"><div class="lg"><img data-lb src="${c.img}" alt="" loading="lazy" referrerpolicy="no-referrer"></div><span class="tag">${c.k}</span><h3>${c.t}</h3><p>${c.d}</p>${A(c.u,c.l||'View certificate')}</div></article>`).join('');
 $('#flt').onclick=e=>{const k=e.target.dataset.k;if(!k)return;[...$('#flt').children].forEach(b=>b.classList.toggle('on',b===e.target));document.querySelectorAll('#exg .card').forEach(c=>{c.hidden=!(k==='all'||c.dataset.k===k)})};
 $('#sk').innerHTML=SK.map((s,i)=>`<article class="card rv" style="--i:${i}"><div class="im"><img src="${s.img}" alt="" loading="lazy" referrerpolicy="no-referrer"></div><div class="bd"><h3>${s.t}</h3><p style="margin:0">${s.d}</p></div></article>`).join('');
 /* hide broken images, keep gradient */
-document.addEventListener('error',e=>{if(e.target.tagName==='IMG'&&!e.target.closest('.pf,.logo'))e.target.style.opacity=0},true);
+document.addEventListener('error',e=>{const i=e.target;if(i.tagName!=='IMG'||i.closest('.pf,.logo'))return;
+ if(!i._l){const L=[],m=i.src.match(/drive\.google\.com\/thumbnail\?id=([-\w]+)|googleusercontent\.com\/d\/([-\w]+)|drive\.google\.com\/uc\?export=view&id=([-\w]+)/);
+  if(m){const id=m[1]||m[2]||m[3];L.push('https://lh3.googleusercontent.com/d/'+id+'=w1600','https://drive.google.com/uc?export=view&id='+id)}
+  if(i.dataset.alt)L.push(i.dataset.alt);if(i.dataset.fb)L.push(i.dataset.fb);i._l=L}
+ if(i._l.length){i.style.opacity='';i._ch=1;i.src=i._l.shift();return}
+ if(i.closest('.lg')){const c=i.closest('.card'),t=((c&&c.querySelector('h3')||{}).textContent||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();const b=document.createElement('b');b.className='mono';b.textContent=t||'•';i.replaceWith(b);return}
+ i.style.opacity=0},true);
 $('#yr').textContent=new Date().getFullYear();
 /* ---- THEME ---- */
 $('#tg').onclick=()=>{const r=document.documentElement,n=r.dataset.theme==='dark'?'light':'dark';document.body.classList.add('tr');r.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}setTimeout(()=>document.body.classList.remove('tr'),600)};
@@ -542,12 +614,16 @@ document.querySelectorAll('section[id]').forEach(s=>spy.observe(s));
 addEventListener('resize',()=>{const a=$('#links a.on');if(a)mark(a.hash.slice(1))});
 /* ---- CAROUSEL ---- */
 const tk=$('#tk'),dots=$('#dots');let ci=0,tm;
-tk.innerHTML=HACK.map((h,i)=>`<img data-lb src="${U+h}" alt="Hackathon photo ${i+1}" loading="lazy">`).join('');
+tk.innerHTML=HACK.map((h,i)=>`<div class="sl"><img data-lb data-alt="${h}" src="https://drive.google.com/thumbnail?id=${HACKID[i]}&sz=w1600" alt="Code Spark 2025 photo ${i+1}" referrerpolicy="no-referrer"></div>`).join('');
 dots.innerHTML=HACK.map((_,i)=>`<button aria-label="Photo ${i+1}"></button>`).join('');
-function go(i){ci=(i+HACK.length)%HACK.length;tk.style.transform=`translateX(-${ci*100}%)`;[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===ci))}
+function go(i){const n=tk.children.length;if(!n)return;ci=(i+n)%n;tk.style.transform=`translateX(-${ci*100}%)`;[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===ci))}
 function auto(){clearInterval(tm);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)tm=setInterval(()=>go(ci+1),5000)}
 $('#pv').onclick=()=>{go(ci-1);auto()};$('#nx').onclick=()=>{go(ci+1);auto()};
-[...dots.children].forEach((d,k)=>d.onclick=()=>{go(k);auto()});go(0);auto();
+dots.onclick=e=>{const k=[...dots.children].indexOf(e.target.closest('button'));if(k>-1){go(k);auto()}};go(0);auto();
+/* if a photo is missing: try .png/.jpeg/.webp, otherwise drop that slide */
+tk.addEventListener('error',e=>{const i=e.target;if(i.tagName!=='IMG')return;if(i._ch){i._ch=0;return}const m=(i.getAttribute('src')||'').match(/^(.*)\.(\w+)$/);if(!m)return;const tried=(i.dataset.t||m[2])+',',nx=['jpg','png','jpeg','webp'].find(k=>!tried.split(',').includes(k));
+ if(nx){i.dataset.t=tried+nx;i.style.opacity='';i.src=m[1]+'.'+nx;return}
+ (i.closest('.sl')||i).remove();dots.innerHTML=[...tk.children].map((_,k)=>`<button aria-label="Photo ${k+1}"></button>`).join('');go(Math.min(ci,tk.children.length-1))},true);
 let sx=0;tk.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});tk.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40){go(ci+(d<0?1:-1));auto()}});
 /* ---- LIGHTBOX ---- */
 const lb=$('#lb');
@@ -573,7 +649,7 @@ function tilt(el,max){
   el.style.setProperty('--ry',(x-.5)*max+'deg');el.style.setProperty('--rx',(.5-y)*max+'deg');el.style.setProperty('--mx',x*100+'%');el.style.setProperty('--my',y*100+'%');el.classList.add('tl')});
  ['pointerleave','pointercancel'].forEach(ev=>el.addEventListener(ev,()=>{el.classList.remove('tl');el.style.setProperty('--ry','0deg');el.style.setProperty('--rx','0deg')}));
 }
-if(!calm){document.querySelectorAll('.card').forEach(c=>tilt(c,c.matches('.feat,.rs')?4:9));tilt($('#pf'),16);
+if(!calm){document.querySelectorAll('.card').forEach(c=>tilt(c,c.matches('.feat,.rs')?4:9));
  if(fine)document.querySelectorAll('.btn').forEach(b=>{b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.translate=((e.clientX-r.left-r.width/2)*.22)+'px '+((e.clientY-r.top-r.height/2)*.3)+'px'});b.addEventListener('pointerleave',()=>b.style.translate='0 0')})}
 const sp=$('#sp');addEventListener('scroll',()=>{sp.style.transform=`scaleX(${scrollY/(document.documentElement.scrollHeight-innerHeight||1)})`},{passive:true});
 /* Apple-style waves */
@@ -617,7 +693,7 @@ const sp=$('#sp');addEventListener('scroll',()=>{sp.style.transform=`scaleX(${sc
   const el=$('#c-'+key);if(!el)return;
   const ids=c.links.map(x=>(String(x).match(/[-\w]{25,}/)||[])[0]).filter(Boolean);
   if(!ids.length){el.innerHTML=`<div class="mph"><span>${c.label}</span>${c.folder?`<a class="btn bs" href="${c.folder}" target="_blank" rel="noopener">View project photos</a>`:''}</div>`;return}
-  el.innerHTML=`<div class="vp"><div class="tk">${ids.map((id,i)=>`<img data-lb src="https://drive.google.com/thumbnail?id=${id}&sz=w1400" alt="${c.label} photo ${i+1}" loading="lazy" referrerpolicy="no-referrer">`).join('')}</div><button class="cb l" aria-label="Previous photo">‹</button><button class="cb r" aria-label="Next photo">›</button><div class="dots">${ids.map((_,i)=>`<button aria-label="Photo ${i+1}"></button>`).join('')}</div></div>`;
+  el.innerHTML=`<div class="vp"><div class="tk">${ids.map((id,i)=>`<div class="sl"><img data-lb src="https://drive.google.com/thumbnail?id=${id}&sz=w1400" alt="${c.label} photo ${i+1}" loading="lazy" referrerpolicy="no-referrer"></div>`).join('')}</div><button class="cb l" aria-label="Previous photo">‹</button><button class="cb r" aria-label="Next photo">›</button><div class="dots">${ids.map((_,i)=>`<button aria-label="Photo ${i+1}"></button>`).join('')}</div></div>`;
   const tk=el.querySelector('.tk'),dots=[...el.querySelectorAll('.dots button')];let i=0,tm,vis=true;
   const go=n=>{i=(n+ids.length)%ids.length;tk.style.transform=`translateX(-${i*100}%)`;dots.forEach((d,k)=>d.classList.toggle('on',k===i))};
   const auto=()=>{clearInterval(tm);if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&ids.length>1)tm=setInterval(()=>vis&&go(i+1),4500)};
@@ -657,6 +733,37 @@ const sp=$('#sp');addEventListener('scroll',()=>{sp.style.transform=`scaleX(${sc
   build(1);const w=row.scrollWidth/2;const n=Math.max(1,Math.ceil(innerWidth*1.1/w));if(n>1)build(n);
   row.style.setProperty('--dur',Math.round(row.scrollWidth/2/80)+'s');
  });
+})();
+</script>
+<script>
+/* carousel slides: keep the blurred backdrop in sync with the photo that actually loaded */
+(function(){const set=i=>{const p=i.parentNode;if(p&&p.classList&&p.classList.contains('sl')&&i.currentSrc)p.style.setProperty('--bg','url("'+i.currentSrc+'")')};
+ document.addEventListener('load',e=>{if(e.target.tagName==='IMG')set(e.target)},true);document.querySelectorAll('.tk .sl img').forEach(i=>i.complete&&set(i))})();
+/* hero photo: black & white, colour appears like smoke wherever the cursor or finger moves */
+(function(){const pf=$('#pf');if(!pf)return;const box=pf.querySelector('.in'),base=box&&box.querySelector('img');if(!base)return;
+ base.classList.add('bw');const col=document.createElement('img');col.className='col';col.alt='';col.setAttribute('aria-hidden','true');col.referrerPolicy='no-referrer';box.appendChild(col);
+ const sync=()=>{if(base.currentSrc&&col.src!==base.currentSrc)col.src=base.currentSrc};base.addEventListener('load',sync);sync();
+ let pts=[],head=null,raf=0,last=0,lx=-99,ly=-99;
+ const g=(x,y,r,a)=>`radial-gradient(circle ${r.toFixed(0)}px at ${x.toFixed(0)}px ${y.toFixed(0)}px,rgba(0,0,0,${a.toFixed(2)}) 0%,rgba(0,0,0,${(a*.55).toFixed(2)}) 45%,rgba(0,0,0,0) 100%)`;
+ const paint=()=>{const L=pts.map(p=>g(p.x,p.y,p.r,p.a));if(head)L.unshift(g(head.x,head.y,head.r,1));const v=L.length?L.join(','):'linear-gradient(transparent,transparent)';col.style.webkitMaskImage=v;col.style.maskImage=v};
+ const tick=t=>{const dt=Math.min(40,t-last||16);last=t;
+  pts.forEach(p=>{p.age+=dt;p.r+=dt*.05;p.a=Math.max(0,1-p.age/1100);p.x+=p.vx*dt*.03;p.y+=p.vy*dt*.03});pts=pts.filter(p=>p.a>.02);
+  if(head)head.r+=(head.R-head.r)*.15;paint();raf=(pts.length||head)?requestAnimationFrame(tick):0};
+ const kick=()=>{if(!raf){last=0;raf=requestAnimationFrame(tick)}};
+ const pos=e=>{const r=box.getBoundingClientRect(),k=box.offsetWidth/(r.width||1);return{x:(e.clientX-r.left)*k,y:(e.clientY-r.top)*k}};
+ pf.addEventListener('pointermove',e=>{const q=pos(e);if(!head)head={x:q.x,y:q.y,r:20,R:Math.max(90,box.offsetWidth*.2)};head.x=q.x;head.y=q.y;
+  if(Math.hypot(q.x-lx,q.y-ly)>14){lx=q.x;ly=q.y;pts.push({x:q.x,y:q.y,r:head.R*.7,a:1,age:0,vx:(Math.random()-.5)*2,vy:-Math.random()*1.5-.3});if(pts.length>22)pts.shift()}kick()});
+ const out=()=>{head=null;kick()};pf.addEventListener('pointerleave',out);pf.addEventListener('pointercancel',out);
+})();
+</script>
+<script>
+/* keep blurred backdrops and carousel frame shape in sync with the photo that really loaded */
+(function(){const bg=i=>{const p=i.parentNode;if(p&&p.classList&&(p.classList.contains('sl')||p.classList.contains('fitc'))&&i.currentSrc)p.style.setProperty('--bg','url("'+i.currentSrc+'")')};
+ const fit=vp=>{const tk=vp.querySelector('.tk');if(!tk)return;const m=(tk.style.transform||'').match(/(\d+(?:\.\d+)?)%/),k=m?Math.round(+m[1]/100):0,im=tk.children[k]&&tk.children[k].querySelector('img');
+  if(im&&im.naturalWidth)vp.style.setProperty('--ar',Math.min(2.2,Math.max(1.15,im.naturalWidth/im.naturalHeight)).toFixed(3))};
+ document.addEventListener('load',e=>{const i=e.target;if(i.tagName!=='IMG')return;bg(i);const v=i.closest('.vp');if(v)fit(v)},true);
+ document.querySelectorAll('.tk .sl img,.fitc img').forEach(i=>i.complete&&bg(i));
+ document.querySelectorAll('.vp').forEach(v=>{const tk=v.querySelector('.tk');if(!tk)return;new MutationObserver(()=>fit(v)).observe(tk,{attributes:true,attributeFilter:['style']});fit(v)});
 })();
 </script>
 </body>
